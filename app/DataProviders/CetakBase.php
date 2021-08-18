@@ -98,20 +98,28 @@ class CetakBase
 
     public function getTtdPetugasLab()
     {
+        $ttd_provider = new \App\DataProviders\PenandaTanganHasilDataProvider;
         $pasien = PasienLabDataProvider::findPasienComplete($this->id_pasien_lab);
+        $ttd_dokter = $ttd_provider->find($pasien->id_dokter);
+        $ttd_petugas = $ttd_provider->find($pasien->id_petugas);
+
         $this->ttdPetugasLab = "
             
             <table width='100%'>
                 <tr>
                     <td width='200px' style='text-align: center;' valign='top'>
                         <div style='flex-basis: 100%; text-align: center;'>PETUGAS LAB</div>
-                        <div style='height: 2cm;'></div>
+                        <div style='height: 2cm;'>
+                            <img src='" . \public_path() . "/ttd_pegawai/" . $ttd_petugas->scan_ttd . "' style='height: 2cm; object-fit: contain' />
+                        </div>
                         <div style='flex-basis: 100%; text-align: center;'>" . $pasien->nama_petugas . "</div>
                     </td>
                     <td></td>
                     <td width='300px' style='text-align: center;' valign='top'>
                         <div style='flex-basis: 100%; text-align: center;'>SALAM SEJAWAT</div>
-                        <div style='height: 2cm;'></div>
+                        <div style='height: 2cm;'>
+                            <img src='" . \public_path() . "/ttd_pegawai/" . $ttd_dokter->scan_ttd . "' style='height: 2cm; object-fit: contain' />
+                        </div>
                         <div style='flex-basis: 100%; text-align: center;'><span style='text-decoration: underline;'>" . $pasien->nama_dokter . "</span><br />" . $pasien->keterangan_dokter . "</div>
                     </td>
                 </tr>
@@ -121,20 +129,28 @@ class CetakBase
 
     public function getTtdPetugasKhususNarkoba()
     {
+        $ttd_provider = new \App\DataProviders\PenandaTanganHasilDataProvider;
         $pasien = PasienLabDataProvider::findPasienComplete($this->id_pasien_lab);
+        $ttd_dokter = $ttd_provider->find($pasien->id_dokter);
+        $ttd_karumkit = $ttd_provider->find($pasien->id_karumkit);
+
         $this->ttdPetugasLab = "
             
             <table width='100%'>
                 <tr>
                     <td width='300px' style='text-align: center;' valign='top'>
                         <div style='flex-basis: 100%; text-align: center;'>Diketuahui Oleh:<br />KEPALA RUMAH SAKIT BHAYANGKARA TK II MEDAN</div>
-                        <div style='height: 2cm;'></div>
+                        <div style='height: 2cm;'>
+                            <img src='" . \public_path() . "/ttd_pegawai/" . $ttd_karumkit->scan_ttd . "' style='height: 2cm; object-fit: contain' />
+                        </div>
                         <div style='flex-basis: 100%; text-align: center;'><span style='text-decoration: underline;'>" . $pasien->nama_karumkit . "</span><br />" . $pasien->keterangan_karumkit . "</div>
                     </td>
                     <td></td>
                     <td width='300px' style='text-align: center;' valign='top'>
                         <div style='flex-basis: 100%; text-align: center;'>&nbsp;<br />SALAM SEJAWAT</div>
-                        <div style='height: 2cm;'></div>
+                        <div style='height: 2cm;'>
+                            <img src='" . \public_path() . "/ttd_pegawai/" . $ttd_dokter->scan_ttd . "' style='height: 2cm; object-fit: contain' />
+                        </div>
                         <div style='flex-basis: 100%; text-align: center;'><span style='text-decoration: underline;'>" . $pasien->nama_dokter . "</span><br />" . $pasien->keterangan_dokter . "</div>
                     </td>
                 </tr>

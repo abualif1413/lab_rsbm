@@ -4,7 +4,7 @@
 
 <x-content-title title="Pengaturan Penanda Tangan Hasil" />
 
-<form action="{{ url('/penanda_tangan_hasil/submit') }}" method="post">
+<form action="{{ url('/penanda_tangan_hasil/submit') }}" method="post" enctype="multipart/form-data">
     @csrf
     <input type="hidden" name="id_penanda_tangan_hasil" id="id_penanda_tangan_hasil" value="{{ ($find != null) ? $find->id_penanda_tangan_hasil : "" }}">
     <x-content-card title="Data Penanda Tangan">
@@ -34,6 +34,17 @@
                     <input type="text" class="form-control" id="keterangan" name="keterangan" placeholder="Keterangan Dibawah Nama" value="{{ ($find != null) ? $find->keterangan : "" }}">
                 </div>
             </div>
+            <div class="form-group row">
+                <label for="pelayanan_lab" class="col-sm-2 col-form-label">Scan TTD</label>
+                <div class="col-sm-10">
+                    <input type="file" class="form-control" id="ttd" name="ttd" placeholder="Upload scan ttd penanda tangan">
+                    @if ($find != null)
+                        <small class="form-text text-muted">
+                            Jika tanda tangan tidak berubah, silahkan di kosongkan
+                        </small>
+                    @endif
+                </div>
+            </div>
         </x-slot>
         <x-slot name="footer">
             @if ($find == null)
@@ -57,6 +68,7 @@
                     <th width="200px">Jenis</th>
                     <th>Nama</th>
                     <th>Keterangan Dibawah Nama</th>
+                    <th>TTD</th>
                 </tr>
             </thead>
             <tbody>
@@ -72,6 +84,9 @@
                         <td>{{ $daftar->jenis_i }}</td>
                         <td>{{ $daftar->nama }}</td>
                         <td>{{ $daftar->keterangan }}</td>
+                        <td>
+                            <img src="{{ url('/public/ttd_pegawai/' . $daftar->scan_ttd) }}" alt="" width="200px" style="object-fit: contain;">
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
