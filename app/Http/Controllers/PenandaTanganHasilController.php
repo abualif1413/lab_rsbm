@@ -31,9 +31,9 @@ class PenandaTanganHasilController extends Controller
     {
         $provider = new PenandaTanganHasilDataProvider;
         if($req->submit_type == "add")
-            $provider->add($req->jenis, $req->nama, $req->keterangan);
+            $provider->add($req->jenis, $req->nama, $req->keterangan, $req->file('ttd'));
         elseif($req->submit_type == "edit")
-            $provider->edit($req->id_penanda_tangan_hasil, $req->jenis, $req->nama, $req->keterangan);
+            $provider->edit($req->id_penanda_tangan_hasil, $req->jenis, $req->nama, $req->keterangan, $req->file('ttd'));
 
         return redirect("/penanda_tangan_hasil");
     }
