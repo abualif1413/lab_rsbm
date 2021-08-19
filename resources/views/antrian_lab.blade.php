@@ -101,9 +101,9 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-sm-4 col-form-label">No. HP</label>
+                                <label for="nama" class="col-sm-4 col-form-label">Email</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="no_hp" name="no_hp" placeholder="No. HP" value="">
+                                    <input type="text" class="form-control" id="no_hp" name="no_hp" placeholder="Email" value="">
                                 </div>
                             </div>
                             <div class="form-group row">

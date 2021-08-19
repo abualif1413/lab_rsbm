@@ -134,9 +134,11 @@ class AntrianLabController extends Controller
 
     public function smsHasil($id_pasien_lab)
     {
-        $response = \App\DataProviders\PasienLabDataProvider::kirimSMSHasil($id_pasien_lab);
+        // $response = \App\DataProviders\PasienLabDataProvider::kirimSMSHasil($id_pasien_lab);
+        \App\DataProviders\PasienLabDataProvider::emailHasil($id_pasien_lab);
 
-        return response()->json($response);
+
+        return response()->json(["success" => 1]);
     }
 
     public function add(Request $req)

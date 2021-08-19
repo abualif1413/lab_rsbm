@@ -7,7 +7,9 @@ use App\Models\PasienLab;
 use App\Models\PasienLabProses;
 use App\Models\PasienLabBatal;
 use App\Models\PasienLabKeteranganHasil;
+use App\Mail\KirimHasilMail;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 
 class PasienLabDataProvider
 {
@@ -405,5 +407,18 @@ class PasienLabDataProvider
             "appkey" => $appKey,
             "body" => $data
         ];
+    }
+
+    public static function emailHasil($id_pasien_lab)
+    {
+        $urlCetak = "http://localhost:8080/lab_rsbm/cetak?id_pasien_lab=" . $id_pasien_lab;
+        $detail = self::findPasienComplete($id_pasien_lab);
+        $ketHasil = self::keteranganHasilperPasien($id_pasien_lab);
+        $dtHasil = $ketHasil->tgl_keluar_hasil . "T" . $ketHasil->jam_keluar_hasil;
+        $dtSpesimen = $ketHasil->tgl_pengambilan_spesimen . "T" . $ketHasil->jam_pengambilan_spesimen;
+        $sebutan = ($detail->gender == "l" ? "Bapak" : "Ibu");
+        $email = $detail->no_hp;
+        
+        Mail::to($email)->send(new KirimHasilMail($sebutan, $detail->nama, $urlCetak));
     }
 }
