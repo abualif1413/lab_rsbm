@@ -132,6 +132,13 @@ class AntrianLabController extends Controller
         ]);
     }
 
+    public function smsHasil($id_pasien_lab)
+    {
+        $response = \App\DataProviders\PasienLabDataProvider::kirimSMSHasil($id_pasien_lab);
+
+        return response()->json($response);
+    }
+
     public function add(Request $req)
     {
         if($req->submit_type == "add") {

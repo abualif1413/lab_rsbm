@@ -7,6 +7,7 @@ use App\Models\PasienLab;
 use App\Models\PasienLabProses;
 use App\Models\PasienLabBatal;
 use App\Models\PasienLabKeteranganHasil;
+use Illuminate\Support\Facades\Http;
 
 class PasienLabDataProvider
 {
@@ -369,5 +370,40 @@ class PasienLabDataProvider
             return $ketHasil;
         else
             return null;
+    }
+
+    /**
+     * Digunakan untuk mengirim SMS hasilnya ke pasien
+     */
+    public static function kirimSMSHasil($id_pasien_lab)
+    {
+        $urlAPI = "http://localhost:8080/rsbm_sms_monitor/api/send";
+        $urlCetak = "http://localhost:8080/lab_rsbm/cetak/narkoba?id_pasien_lab=" . $id_pasien_lab;
+        $appKey = "123456789";
+        $detail = self::findPasienComplete($id_pasien_lab);
+        $ketHasil = self::keteranganHasilperPasien($id_pasien_lab);
+        $dtHasil = $ketHasil->tgl_keluar_hasil . "T" . $ketHasil->jam_keluar_hasil;
+        $dtSpesimen = $ketHasil->tgl_pengambilan_spesimen . "T" . $ketHasil->jam_pengambilan_spesimen;
+        $sebutan = ($detail->gender == "l" ? "Bapak" : "Ibu");
+        $no_hp = $detail->no_hp;
+        $isi = "
+            Hai " . $sebutan . " " . $detail->nama . ",\n" . "Pemeriksaan laboratorium anda pada RS. Bhayangkara TK II Medan telah selesai.\n
+            Silahkan mengambil spesimen dan hasilnya langsung ke lokasi,
+            atau silahkan klik link dibawah untuk mendapatkan soft copy hasil nya\n
+            " . $urlCetak . "
+        ";
+
+        $data = [
+            "destination_number" => $no_hp,
+            "text" => $isi,
+            "application_key" => $appKey,
+            "application_record_id" => $id_pasien_lab
+        ];
+
+        return [
+            "endpoint" => $urlAPI,
+            "appkey" => $appKey,
+            "body" => $data
+        ];
     }
 }

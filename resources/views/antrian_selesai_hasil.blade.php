@@ -46,6 +46,8 @@
                         <tr>
                             <th width="50px"></th>
                             <th width="50px"></th>
+                            <th width="50px"></th>
+                            <th width="50px"></th>
                             <th width="30px">No.</th>
                             <th>Nama</th>
                             <th>Jenis Kegiatan</th>
@@ -57,6 +59,8 @@
                             <tr>
                                 <td><button class="btn btn-sm btn-success btn-block" onclick="goFind({{ $q->id_pasien_lab }});">Detail</button></td>
                                 <td><button class="btn btn-sm btn-primary btn-block" onclick="goCetak({{ $q->id_pasien_lab }})">Cetak</button></td>
+                                <td><button class="btn btn-sm btn-warning btn-block" onclick="goHasil({{ $q->id_pasien_lab }})">Hasil</button></td>
+                                <td><button class="btn btn-sm btn-primary btn-block" onclick="goSMS({{ $q->id_pasien_lab }})">SMS</button></td>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $q->nama }}</td>
                                 <td>{{ $q->kegiatan }}</td>
@@ -183,6 +187,24 @@
 
     function goCetak(id_pasien_lab) {
         window.open("{{ url('/cetak') }}?id_pasien_lab=" + id_pasien_lab);
+    }
+
+    function goHasil(id_pasien_lab) {
+        document.location.href = "{{ url('/antrian_lab/input_hasil') }}/" + id_pasien_lab;
+    }
+
+    function goSMS(id_pasien_lab) {
+        if(confirm("Anda yakin akan mengirim pesan kepada pasien ini?")) {
+            $.get("{{ url('/antrian_lab/sms_hasil') }}/" + id_pasien_lab)
+            .done(function(r) {
+                console.log(r);
+                $.post(r.endpoint, r.body)
+                .done(function(r2) {
+                    console.log(r2);
+                    alert("Sms telah dikirim");
+                });
+            })
+        }
     }
 </script>
 

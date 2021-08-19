@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/antrian_lab/antrian_selesai_periksa', [Controllers\AntrianLabController::class, 'antrianSelesaiPeriksa']);
     Route::get('/antrian_lab/antrian_selesai_hasil', [Controllers\AntrianLabController::class, 'antrianSelesaiHasil']);
     Route::get('/antrian_lab/input_hasil/{id_pasien_lab}', [Controllers\AntrianLabController::class, 'inputHasil']);
+    Route::get('/antrian_lab/sms_hasil/{id_pasien_lab}', [Controllers\AntrianLabController::class, 'smsHasil']);
     Route::post('/antrian_lab/input_hasil/tentukan_pelayanan', [Controllers\AntrianLabController::class, 'inputHasilTentukanPelayanan']);
     Route::post('/antrian_lab/input_hasil/isi_hasil_pemeriksaan', [Controllers\AntrianLabController::class, 'inputHasilIsiHasilPemeriksaanLab']);
     
