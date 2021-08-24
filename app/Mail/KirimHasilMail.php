@@ -13,6 +13,8 @@ class KirimHasilMail extends Mailable
 
     private $sebutan;
     private $nama;
+    private $pemeriksaan;
+    private $hasil;
     private $url_cetak;
 
     /**
@@ -20,10 +22,12 @@ class KirimHasilMail extends Mailable
      *
      * @return void
      */
-    public function __construct($sebutan, $nama, $url_cetak)
+    public function __construct($sebutan, $nama, $pemeriksaan, $hasil, $url_cetak)
     {
         $this->sebutan = $sebutan;
         $this->nama = $nama;
+        $this->pemeriksaan = $pemeriksaan;
+        $this->hasil = $hasil;
         $this->url_cetak = $url_cetak;
     }
 
@@ -35,11 +39,14 @@ class KirimHasilMail extends Mailable
     public function build()
     {
         return $this->from(env('MAIL_FROM_ADDRESS'))
+                    ->subject('Hasil Pemeriksaan Lab')
                     ->view('email_hasil')
                     ->with(
                     [
                         'sebutan' => $this->sebutan,
                         'nama' => $this->nama,
+                        'pemeriksaan' => $this->pemeriksaan,
+                        'hasil' => $this->hasil,
                         'url_cetak' => $this->url_cetak,
                     ]);
     }

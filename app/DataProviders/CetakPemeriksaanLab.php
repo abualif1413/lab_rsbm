@@ -15,6 +15,9 @@ class CetakPemeriksaanLab extends CetakBase implements ICetakHasilLab
     public function getIsi() {
         $hasil = PasienLabDataProvider::pelayananUntukDiinput($this->id_pasien_lab);
         $ketHasil = \App\Models\PasienLabKeteranganHasil::find($this->id_pasien_lab);
+        $caption = \App\Models\PasienLab::leftJoin('t_kegiatan', 't_pasien_lab.id_kegiatan', 't_kegiatan.id_kegiatan')
+                    ->where('t_pasien_lab.id_pasien_lab', $this->id_pasien_lab)
+                    ->select('t_kegiatan.kegiatan')->first();
 
         $txtHasil = "";
         foreach ($hasil as $hasil) {
@@ -24,7 +27,7 @@ class CetakPemeriksaanLab extends CetakBase implements ICetakHasilLab
                         <td style='border: solid 1px black;'>" . $hasil->pelayanan_lab . "</td>
                         <td style='border: solid 1px black;'>" . $hasil->hasil . "</td>
                         <td style='border: solid 1px black;'>" . $hasil->satuan . "</td>
-                        <td style='border: solid 1px black;'>" . $hasil->normal . "</td>
+                        <td style='border: solid 1px black;'>" . htmlentities($hasil->normal) . "</td>
                     </tr>
                 ";
             } else {
@@ -33,7 +36,7 @@ class CetakPemeriksaanLab extends CetakBase implements ICetakHasilLab
                         <td style='border: solid 1px black;'>" . $hasil->pelayanan_lab . "</td>
                         <td style='border: solid 1px black;'>" . $hasil->hasil . "</td>
                         <td style='border: solid 1px black;'>" . $hasil->satuan . "</td>
-                        <td style='border: solid 1px black;'>" . $hasil->normal . "</td>
+                        <td style='border: solid 1px black;'>" . htmlentities($hasil->normal) . "</td>
                     </tr>
                 ";
             }
@@ -41,7 +44,7 @@ class CetakPemeriksaanLab extends CetakBase implements ICetakHasilLab
 
         $waktuPengambilanSpesimen = $ketHasil->tgl_pengambilan_spesimen . "T" . $ketHasil->jam_pengambilan_spesimen;
         $isi = "
-            <h4 style='text-decoration: underline; text-align: center; font-size: 15pt;'>HASIL PEMERIKSAAN LABORATORIUM</h4>
+            <h4 style='text-decoration: underline; text-align: center; font-size: 15pt; text-transform: uppercase;'>HASIL " . $caption->kegiatan . "</h4>
             <table width='100%' border='0' style='border-collapse: collapse; page-break-inside: auto;'>
                 <thead style='background-color: #bfffbf;'>
                     <tr>

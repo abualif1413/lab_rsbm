@@ -13,6 +13,11 @@ class CetakController extends Controller
         $pasien = \App\Models\PasienLab::find($req->id_pasien_lab);
         switch ($pasien->id_kegiatan) {
             case '1':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+            case '10':
                 return redirect("/cetak/lab?id_pasien_lab=" . $req->id_pasien_lab);
                 break;
             case '2':

@@ -31,6 +31,32 @@ class AntrianLabController extends Controller
         ]);
     }
 
+    public function guest(Request $req)
+    {
+        $antrian = \App\DataProviders\PasienLabDataProvider::getPasienQueue();
+        $gender = \App\DataProviders\CommonFunction::genders();
+        $kegiatan = \App\DataProviders\KegiatanDataProvider::all();
+
+        $ada_yang_masuk = false;
+        foreach ($antrian as &$q) {
+            if(strtolower($q->status_proses) == \App\DataProviders\PasienLabDataProvider::$status_proses["masuk"]) {
+                $ada_yang_masuk = true;
+                $q->sedang_masuk = true;
+            } else {
+                $q->sedang_masuk = false;
+            }
+        }
+
+        return view('guest', [
+            "antrian" => $antrian,
+            "tgl_sekarang" => date("Y-m-d"),
+            "gender" => $gender,
+            "kegiatan" => $kegiatan,
+            "ada_yang_masuk" => $ada_yang_masuk,
+            "sudah_daftar" => $req->sudah_daftar ?? 0
+        ]);
+    }
+
     public function antrianBatal(Request $req)
     {
         $antrian = [];
@@ -172,6 +198,39 @@ class AntrianLabController extends Controller
         }
 
         return redirect("/antrian_lab");
+    }
+
+    public function addFromGuest(Request $req)
+    {
+        if($req->submit_type == "add") {
+            $pasienLab = new \App\Models\PasienLab;
+            $pasienLab->id_kegiatan = $req->id_kegiatan;
+            $pasienLab->tanggal = $req->tanggal;
+            $pasienLab->nama = $req->nama;
+            $pasienLab->nik = $req->nik;
+            $pasienLab->kesatuan = $req->kesatuan;
+            $pasienLab->no_hp = $req->no_hp;
+            $pasienLab->tgl_lahir = $req->tgl_lahir;
+            $pasienLab->gender = $req->gender;
+            $pasienLab->alamat = $req->alamat;
+            \App\DataProviders\PasienLabDataProvider::add($pasienLab, $req->bukti_pembayaran);
+        } elseif($req->submit_type == "edit") {
+            $pasienLab = \App\Models\PasienLab::find($req->id_pasien_lab);
+            $pasienLab->id_kegiatan = $req->id_kegiatan;
+            $pasienLab->tanggal = $req->tanggal;
+            $pasienLab->nama = $req->nama;
+            $pasienLab->nik = $req->nik;
+            $pasienLab->kesatuan = $req->kesatuan;
+            $pasienLab->no_hp = $req->no_hp;
+            $pasienLab->tgl_lahir = $req->tgl_lahir;
+            $pasienLab->gender = $req->gender;
+            $pasienLab->alamat = $req->alamat;
+            \App\DataProviders\PasienLabDataProvider::edit($pasienLab, $req->bukti_pembayaran);
+        } elseif($req->submit_type == "batal") {
+            \App\DataProviders\PasienLabDataProvider::pasienBatal($req->id_pasien_lab, $req->alasan);
+        }
+
+        return redirect("/guest?sudah_daftar=1");
     }
 
     public function pasienMasuk(Request $req)

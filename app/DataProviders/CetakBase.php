@@ -23,7 +23,7 @@ class CetakBase
             <table width='100%' style='background-color: #bfffbf; border-bottom: solid 3px #ff8989;'>
                 <tr>
                     <td width='120px'>
-                        <img src='" . url("/images/logo_polda_sumut.png") . "' style='width: 120px; height: 120px; object-fit: contain;' />
+                        <img src='" . \public_path() . "/images/logo_polda_sumut.png' style='width: 120px; height: 120px; object-fit: contain;' />
                     </td>
                     <td style='text-align: center;'>
                         <div style='font-weight: bold; font-size: 17pt;'>RUMAH SAKIT BHAYANGKARA TK-II MEDAN</div>
@@ -33,7 +33,7 @@ class CetakBase
                         <div style='font-size: 13pt;'>Email: subbagpers_rsbm@yahoo.com</div>
                     </td>
                     <td width='120px'>
-                        <img src='" . url("/images/logo_dokkes.png") . "' style='width: 120px; height: 120px; object-fit: contain;' />
+                        <img src='" . \public_path() . "/images/logo_dokkes.png' style='width: 120px; height: 120px; object-fit: contain;' />
                     </td>
                 </tr>
             </table>
@@ -50,7 +50,7 @@ class CetakBase
             </div>
             <br />
             <div style='text-align: center;'>
-                <img src='" . url("/images/logo_polri.png") . "' style='width: 80px; height: 80px; object-fit: contain;' />
+                <img src='" . \public_path() . "/images/logo_polri.png' style='width: 80px; height: 80px; object-fit: contain;' />
             </div>
         ";
     }

@@ -51,13 +51,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/antrian_lab/input_hasil/tentukan_pelayanan', [Controllers\AntrianLabController::class, 'inputHasilTentukanPelayanan']);
     Route::post('/antrian_lab/input_hasil/isi_hasil_pemeriksaan', [Controllers\AntrianLabController::class, 'inputHasilIsiHasilPemeriksaanLab']);
     
-    Route::get('/cetak', [Controllers\CetakController::class, 'cetak']);
-    Route::get('/cetak/swab', [Controllers\CetakController::class, 'cetakSwab']);
-    Route::get('/cetak/antigen', [Controllers\CetakController::class, 'cetakAntigen']);
-    Route::get('/cetak/lab', [Controllers\CetakController::class, 'cetakLab']);
-    Route::get('/cetak/narkoba', [Controllers\CetakController::class, 'cetakNarkoba']);
-    Route::get('/cetak/pasien_selesai', [Controllers\CetakController::class, 'cetakPasienSelesai']);
-    
     Route::get('/penanda_tangan_hasil', [Controllers\PenandaTanganHasilController::class, 'home']);
     Route::post('/penanda_tangan_hasil/submit', [Controllers\PenandaTanganHasilController::class, 'submit']);
     Route::get('/penanda_tangan_hasil/delete', [Controllers\PenandaTanganHasilController::class, 'delete']);
@@ -72,6 +65,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', [Controllers\LoginController::class, 'logout']);
 
 });
+
+Route::get('/guest', [Controllers\AntrianLabController::class, 'guest']);
+Route::post('/antrian_lab/add_from_guest', [Controllers\AntrianLabController::class, 'addFromGuest']);
+Route::get('/cetak', [Controllers\CetakController::class, 'cetak']);
+Route::get('/cetak/swab', [Controllers\CetakController::class, 'cetakSwab']);
+Route::get('/cetak/antigen', [Controllers\CetakController::class, 'cetakAntigen']);
+Route::get('/cetak/lab', [Controllers\CetakController::class, 'cetakLab']);
+Route::get('/cetak/narkoba', [Controllers\CetakController::class, 'cetakNarkoba']);
+Route::get('/cetak/pasien_selesai', [Controllers\CetakController::class, 'cetakPasienSelesai']);
 
 
 

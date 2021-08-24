@@ -19,13 +19,23 @@ class PasienLabDataProvider
         "selesai_hasil" => "selesai_hasil",
     ];
 
-    public static function add(PasienLab $pasienLab)
+    public static function add(PasienLab $pasienLab, $bukti_pembayaran = null)
     {
         $pasienLab->nomor = "";
         $pasienLab->save();
+        if($bukti_pembayaran != null) {
+            $file = $bukti_pembayaran;
+            $extension = $file->getClientOriginalExtension();
+    
+            if(strtolower($extension) == "png" || strtolower($extension) == "jpg" || strtolower($extension) == "gif") {
+                $file_name = md5($pasienLab->id_pasien_lab) . ".png";
+                $destination_path = \public_path() . "/bukti_pembayaran";
+                $file->move($destination_path, $file_name);
+            }
+        }
     }
 
-    public static function edit(PasienLab $pasienLab)
+    public static function edit(PasienLab $pasienLab, $bukti_pembayaran = null)
     {
         $pasienLab->save();
     }
@@ -411,14 +421,38 @@ class PasienLabDataProvider
 
     public static function emailHasil($id_pasien_lab)
     {
-        $urlCetak = "http://localhost:8080/lab_rsbm/cetak?id_pasien_lab=" . $id_pasien_lab;
+        $urlCetak = "http://202.152.20.114:1237/lab/cetak?id_pasien_lab=" . $id_pasien_lab;
         $detail = self::findPasienComplete($id_pasien_lab);
         $ketHasil = self::keteranganHasilperPasien($id_pasien_lab);
         $dtHasil = $ketHasil->tgl_keluar_hasil . "T" . $ketHasil->jam_keluar_hasil;
         $dtSpesimen = $ketHasil->tgl_pengambilan_spesimen . "T" . $ketHasil->jam_pengambilan_spesimen;
         $sebutan = ($detail->gender == "l" ? "Bapak" : "Ibu");
         $email = $detail->no_hp;
+
+        $hasil = "";
+        switch ($detail->id_kegiatan) {
+            case '1':
+                $cetak = new \App\DataProviders\CetakPemeriksaanLab($id_pasien_lab);
+                $hasil = $cetak->getIsi();
+                break;
+            case '2':
+            case '3':
+                $cetak = new \App\DataProviders\CetakPemeriksaanNarkoba($id_pasien_lab);
+                $hasil = $cetak->getIsi();
+                break;
+            case '4':
+                $cetak = new \App\DataProviders\CetakPemeriksaanAntigen($id_pasien_lab);
+                $hasil = $cetak->getIsi();
+                break;
+            case '5':
+                $cetak = new \App\DataProviders\CetakPemeriksaanSwab($id_pasien_lab);
+                $hasil = $cetak->getIsi();
+                break;
+            default:
+                # code...
+                break;
+        }
         
-        Mail::to($email)->send(new KirimHasilMail($sebutan, $detail->nama, $urlCetak));
+        Mail::to($email)->send(new KirimHasilMail($sebutan, $detail->nama, $detail->kegiatan, $hasil, $urlCetak));
     }
 }
