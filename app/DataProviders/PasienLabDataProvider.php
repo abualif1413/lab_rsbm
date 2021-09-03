@@ -432,6 +432,11 @@ class PasienLabDataProvider
         $hasil = "";
         switch ($detail->id_kegiatan) {
             case '1':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+            case '10':
                 $cetak = new \App\DataProviders\CetakPemeriksaanLab($id_pasien_lab);
                 $hasil = $cetak->getIsi();
                 break;

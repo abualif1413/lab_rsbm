@@ -28,6 +28,11 @@
 			body {
 				font-family: 'Roboto', sans-serif;
 				font-size: 90%;
+				background-image: url('{{ url("/public/images/macho.jpg") }}');
+				background-repeat: no-repeat;
+				background-position: left;
+				background-size: contain;
+				background-color: #063c6a !important;
 			}
 
 			table.table-hover tr {
@@ -44,7 +49,7 @@
 	<body class="hold-transition login-page">
 		<div class="login-box">
 			<div class="login-logo">
-				<a href="#"><b>Pelayanan Laboratorium</b></a>
+				<a href="#" style="color: white !important;"><b>Pelayanan Laboratorium</b></a>
 			</div>
 			<!-- /.login-logo -->
 			<div class="card">

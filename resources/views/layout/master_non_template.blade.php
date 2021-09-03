@@ -28,6 +28,14 @@
 			body {
 				font-family: 'Roboto', sans-serif;
 				font-size: 90%;
+				font-family: 'Roboto', sans-serif;
+				font-size: 90%;
+				background-repeat: no-repeat;
+				background-position: top right;
+				background-size: 300px;
+				background-color: #063c6a !important;
+				background-attachment: fixed;
+				color: white;
 			}
 
 			table.table-hover tr {
@@ -38,6 +46,32 @@
 				background-color: rgba(250, 244, 158, 0.76);
 				transition-delay:0.05s;
 			}
+
+			@media screen and (min-width: 768px) {
+				body {
+					font-family: 'Roboto', sans-serif;
+					font-size: 90%;
+					font-family: 'Roboto', sans-serif;
+					font-size: 90%;
+					background-image: url('{{ url("/public/images/macho.jpg") }}');
+					background-repeat: no-repeat;
+					background-position: top right;
+					background-size: 300px;
+					background-color: #063c6a !important;
+					background-attachment: fixed;
+					color: white;
+				}
+
+				table.table-hover tr {
+					transition: 0.05s background-color, 0.05s color;
+				}
+
+				table.table-hover tr:hover {
+					background-color: rgba(250, 244, 158, 0.76);
+					transition-delay:0.05s;
+				}
+			}
+			
 		</style>
 	</head>
 	<body>

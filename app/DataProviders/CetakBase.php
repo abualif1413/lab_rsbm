@@ -105,7 +105,7 @@ class CetakBase
 
         $this->ttdPetugasLab = "
             
-            <table width='100%'>
+            <table width='100%' style='font-weight: bold;'>
                 <tr>
                     <td width='200px' style='text-align: center;' valign='top'>
                         <div style='flex-basis: 100%; text-align: center;'>PETUGAS LAB</div>
@@ -116,6 +116,7 @@ class CetakBase
                     </td>
                     <td></td>
                     <td width='300px' style='text-align: center;' valign='top'>
+                        <img src='" . \public_path() . "/images/stempel_rs.png' style='height: 2cm; object-fit: contain; position: absolute; z-index: -4; top: 15px;' />
                         <div style='flex-basis: 100%; text-align: center;'>SALAM SEJAWAT</div>
                         <div style='height: 2cm;'>
                             <img src='" . \public_path() . "/ttd_pegawai/" . $ttd_dokter->scan_ttd . "' style='height: 2cm; object-fit: contain' />
