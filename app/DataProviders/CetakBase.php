@@ -134,13 +134,17 @@ class CetakBase
         $pasien = PasienLabDataProvider::findPasienComplete($this->id_pasien_lab);
         $ttd_dokter = $ttd_provider->find($pasien->id_dokter);
         $ttd_karumkit = $ttd_provider->find($pasien->id_karumkit);
+        $ketHasil = \App\Models\PasienLabKeteranganHasil::find($this->id_pasien_lab);
+
+        $tgl_ttd = \App\DataProviders\CommonFunction::tgl_indonesia($ketHasil->tgl_keluar_hasil);
 
         $this->ttdPetugasLab = "
             
             <table width='100%'>
                 <tr>
                     <td width='300px' style='text-align: center;' valign='top'>
-                        <div style='flex-basis: 100%; text-align: center;'>Diketuahui Oleh:<br />KEPALA RUMAH SAKIT BHAYANGKARA TK II MEDAN</div>
+                    <img src='" . \public_path() . "/images/stempel_rumkit.png' style='height: 3cm; object-fit: contain; position: absolute; z-index: -4; top: 15px; margin-left: 1cm;' />
+                        <div style='flex-basis: 100%; text-align: center;'>Diketahui Oleh:<br />KEPALA RUMAH SAKIT BHAYANGKARA TK II MEDAN</div>
                         <div style='height: 2cm;'>
                             <img src='" . \public_path() . "/ttd_pegawai/" . $ttd_karumkit->scan_ttd . "' style='height: 2cm; object-fit: contain' />
                         </div>
@@ -148,7 +152,7 @@ class CetakBase
                     </td>
                     <td></td>
                     <td width='300px' style='text-align: center;' valign='top'>
-                        <div style='flex-basis: 100%; text-align: center;'>&nbsp;<br />SALAM SEJAWAT</div>
+                        <div style='flex-basis: 100%; text-align: center;'>Medan: " . $tgl_ttd . "<br />DOKTER PEMERIKSA</div>
                         <div style='height: 2cm;'>
                             <img src='" . \public_path() . "/ttd_pegawai/" . $ttd_dokter->scan_ttd . "' style='height: 2cm; object-fit: contain' />
                         </div>

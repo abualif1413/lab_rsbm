@@ -32,10 +32,10 @@ class CetakPemeriksaanNarkoba extends CetakBase implements ICetakHasilLab
 
         $waktuPengambilanSpesimen = $ketHasil->tgl_pengambilan_spesimen . "T" . $ketHasil->jam_pengambilan_spesimen;
         $isi = "
-            <h4 style='text-decoration: underline; text-align: center; font-size: 12pt;'>
+            <div style='text-decoration: underline; text-align: center; font-size: 12pt; font-weight: bold;'>
                 <div style='text-decoration: underline'>SURAT KETERANGAN ANALISA URINE</div>
                 <div>Nomor : " . $pasien->nomor . "</div>
-            </h4>
+            </div>
             <p>
                 Yang bertanda tangan di bawah ini Dokter pada Laboratorium Rumah Sakit Bhayangkara Medan
                 melakukan Pemeriksaan / Screening Urine pada :
