@@ -59,7 +59,7 @@ class CetakPemeriksaanNarkoba extends CetakBase implements ICetakHasilLab
                 <tr>
                     <td>Jenis Kelamin</td>
                     <td>:</td>
-                    <td>" . $pasien->gender_i . " Tahun</td>
+                    <td>" . $pasien->gender_i . "</td>
                 </tr>
                 <tr>
                     <td>Alamat</td>
