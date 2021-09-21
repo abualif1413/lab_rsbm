@@ -17,30 +17,36 @@ class CetakBase
         $this->id_pasien_lab = $id_pasien_lab;
     }
 
-    public function getKopSuratHijau()
+    public function getKopSuratHijau($pake_kop = 1)
     {
-        $this->kopSuratHijau = "
-            <table width='100%' style='background-color: #bfffbf; border-bottom: solid 3px #ff8989;'>
-                <tr>
-                    <td width='120px'>
-                        <img src='" . \public_path() . "/images/logo_polda_sumut.png' style='width: 120px; height: 120px; object-fit: contain;' />
-                    </td>
-                    <td style='text-align: center;'>
-                        <div style='font-weight: bold; font-size: 17pt;'>RUMAH SAKIT BHAYANGKARA TK-II MEDAN</div>
-                        <div style='font-weight: bold; font-size: 17pt;'>BIDDOKKES POLDA SUMATERA UTARA</div>
-                        <div style='font-size: 13pt;'>Jl. K.H. Wahid Hasyim No. 1 Medan 20154</div>
-                        <div style='font-size: 13pt;'>Telp: 061-8215990, HP: 081361462147, FAX: 061-8220812</div>
-                        <div style='font-size: 13pt;'>Email: subbagpers_rsbm@yahoo.com</div>
-                    </td>
-                    <td width='120px'>
-                        <img src='" . \public_path() . "/images/logo_dokkes.png' style='width: 120px; height: 120px; object-fit: contain;' />
-                    </td>
-                </tr>
-            </table>
-        ";
+        if($pake_kop == 1) {
+            $this->kopSuratHijau = "
+                <table width='100%' style='background-color: #bfffbf; border-bottom: solid 3px #ff8989;'>
+                    <tr>
+                        <td width='120px'>
+                            <img src='" . \public_path() . "/images/logo_polda_sumut.png' style='width: 120px; height: 120px; object-fit: contain;' />
+                        </td>
+                        <td style='text-align: center;'>
+                            <div style='font-weight: bold; font-size: 17pt;'>RUMAH SAKIT BHAYANGKARA TK-II MEDAN</div>
+                            <div style='font-weight: bold; font-size: 17pt;'>BIDDOKKES POLDA SUMATERA UTARA</div>
+                            <div style='font-size: 13pt;'>Jl. K.H. Wahid Hasyim No. 1 Medan 20154</div>
+                            <div style='font-size: 13pt;'>Telp: 061-8215990, HP: 081361462147, FAX: 061-8220812</div>
+                            <div style='font-size: 13pt;'>Email: subbagpers_rsbm@yahoo.com</div>
+                        </td>
+                        <td width='120px'>
+                            <img src='" . \public_path() . "/images/logo_dokkes.png' style='width: 120px; height: 120px; object-fit: contain;' />
+                        </td>
+                    </tr>
+                </table>
+            ";
+        } else {
+            $this->kopSuratHijau = "
+                <div style='height: 3.4cm;'>&nbsp;</div>
+            ";
+        }
     }
 
-    public function getKopSuratPolri()
+    public function getKopSuratPolri($pake_kop = 1)
     {
         $this->kopSuratPolri = "
             <div style='text-align: center; width: 400px; margin-top: 100px;'>
@@ -143,7 +149,7 @@ class CetakBase
             <table width='100%'>
                 <tr>
                     <td width='400px' style='text-align: center;' valign='top'>
-                    <img src='" . \public_path() . "/images/stempel_rumkit.png' style='height: 3cm; object-fit: contain; position: absolute; z-index: -4; top: 15px; margin-left: 2.5cm; opacity: 0.4;' />
+                    <img src='" . \public_path() . "/images/stempel_rumkit.png' style='height: 3.5cm; object-fit: contain; position: absolute; z-index: -4; top: 15px; margin-left: 2.5cm; opacity: 0.4;' />
                         <div style='flex-basis: 100%; text-align: center;'>Diketahui Oleh:<br />KEPALA RUMAH SAKIT BHAYANGKARA TK II MEDAN</div>
                         <div style='height: 2cm;'>
                             <img src='" . \public_path() . "/ttd_pegawai/" . $ttd_karumkit->scan_ttd . "' style='height: 2cm; object-fit: contain' />

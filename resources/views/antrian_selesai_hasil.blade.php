@@ -58,7 +58,18 @@
                         @foreach ($antrian as $q)
                             <tr>
                                 <td><button class="btn btn-sm btn-success btn-block" onclick="goFind({{ $q->id_pasien_lab }});">Detail</button></td>
-                                <td><button class="btn btn-sm btn-primary btn-block" onclick="goCetak({{ $q->id_pasien_lab }})">Cetak</button></td>
+                                {{-- <td><button class="btn btn-sm btn-primary btn-block" onclick="goCetak({{ $q->id_pasien_lab }})">Cetak</button></td> --}}
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Cetak
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="javascript:goCetak({{ $q->id_pasien_lab }}, 1);">Dengan Kop Surat</a>
+                                            <a class="dropdown-item" href="javascript:goCetak({{ $q->id_pasien_lab }}, 0);">Tanpa Kop Surat</a>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td><button class="btn btn-sm btn-warning btn-block" onclick="goHasil({{ $q->id_pasien_lab }})">Hasil</button></td>
                                 <td><button class="btn btn-sm btn-primary btn-block" onclick="goSMS({{ $q->id_pasien_lab }}, this)">Email</button></td>
                                 <td>{{ $loop->iteration }}</td>
@@ -185,8 +196,8 @@
         })
     }
 
-    function goCetak(id_pasien_lab) {
-        window.open("{{ url('/cetak') }}?id_pasien_lab=" + id_pasien_lab);
+    function goCetak(id_pasien_lab, cetak_kop) {
+        window.open("{{ url('/cetak') }}?id_pasien_lab=" + id_pasien_lab + "&cetak_kop=" + cetak_kop);
     }
 
     function goHasil(id_pasien_lab) {
