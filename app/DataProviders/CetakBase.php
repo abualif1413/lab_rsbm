@@ -67,10 +67,10 @@ class CetakBase
         $this->informasiPasien = "
             <table width='100%'>
                 <tr>
-                    <td width='150px' style='vertical-align: top'>Nama</td>
+                    <td width='100px' style='vertical-align: top'>Nama</td>
                     <td width='5px' valign='top'>:</td>
                     <td style='vertical-align: top'>" . $pasien->nama . "</td>
-                    <td width='150px' style='vertical-align: top'>No. LAB / TGL</td>
+                    <td width='90px' style='vertical-align: top'>No. LAB / TGL</td>
                     <td width='5px' valign='top'>:</td>
                     <td style='vertical-align: top'>" . $pasien->nomor . " / " . Carbon::parse($pasien->tanggal)->isoFormat("DD-MM-YYYY") . "</td>
                 </tr>
